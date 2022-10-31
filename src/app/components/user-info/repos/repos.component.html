@@ -1,0 +1,33 @@
+<table>
+    <thead>
+        <tr>
+            <th>NOMBRE</th>
+            <th>DESCRIPCION</th>
+            <th>URL</th>
+            <th>
+                <img src="../../../../assets/star.svg" alt="ESTRELLAS" />
+            </th>
+            <th>LENGUAJES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <ng-container *ngIf="!reposEmpty; else reposNotFound">
+            <tr *ngFor="let repo of reposShown">
+                <td>{{repo.name}}</td>
+                <td>{{repo.description}}</td>
+                <td><a href="{{repo.html_url}}">{{repo.html_url}}</a></td>
+                <td class="center-text">{{repo.stargazers_count}}</td>
+                <td><span *ngFor=" let language of repo.languages_array">{{language}} </span></td>
+            </tr>
+        </ng-container>
+
+        <ng-template #reposNotFound>
+            <td colspan="5">
+                <app-not-found class="center-text" [error]="error"></app-not-found>
+            </td>
+        </ng-template>
+
+    </tbody>
+
+</table>

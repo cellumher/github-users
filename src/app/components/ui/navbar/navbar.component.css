@@ -1,0 +1,23 @@
+.nav-elements {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.user-search {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tema {
+    border-radius: 50%;
+}
+
+.toggle-theme {
+    background-color: var(--btn-text-color);
+    mask: url("../../../../assets/toggle-theme.svg") no-repeat center;
+    -webkit-mask: url("../../../../assets/toggle-theme.svg") no-repeat center;
+}

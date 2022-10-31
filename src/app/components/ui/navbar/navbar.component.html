@@ -1,0 +1,15 @@
+<nav>
+    <div class="nav-elements">
+        <button class="tema" (click)="alternarTema()">
+            <div class="toggle-theme">
+                <img src="../../../../assets/toggle-theme.svg" style="opacity:0" />
+            </div>
+        </button>
+        <div class="user-search">
+            <input type="text" [(ngModel)]="username" placeholder="Buscar usuario de Github"
+                (keyup.enter)="searchInfo()" />
+            <button (click)="searchInfo()">Buscar</button>
+        </div>
+    </div>
+
+</nav>
