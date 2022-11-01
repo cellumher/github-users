@@ -71,8 +71,6 @@ export class ReposComponent implements OnInit {
   }
 
   sortReposByName(): void {
-
-    console.log("before", this.repos);
     if (this.sortingParameters.name.asc) this.repos.sort(this.compareNameDesc);
     else this.repos.sort(this.compareNameAsc);
 
@@ -84,14 +82,9 @@ export class ReposComponent implements OnInit {
     // preparar la siguiente ordenacion
     this.sortingParameters.name.asc = !this.sortingParameters.name.asc
     this.sortingParameters.stars.asc = false;
-
-    console.log("after", this.repos)
-
   }
 
   sortReposByStars(): void {
-
-    console.log("before", this.repos);
     if (this.sortingParameters.stars.asc) this.repos.sort(this.compareStarsDesc);
     else this.repos.sort(this.compareStarsAsc);
 
@@ -103,9 +96,6 @@ export class ReposComponent implements OnInit {
     // preparar la siguiente ordenacion
     this.sortingParameters.stars.asc = !this.sortingParameters.stars.asc
     this.sortingParameters.name.asc = false;
-
-    console.log("after", this.repos);
-
   }
 
   repeatLastSort(): void {

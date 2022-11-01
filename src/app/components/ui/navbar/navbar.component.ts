@@ -66,7 +66,6 @@ export class NavbarComponent implements OnInit {
     this.service.getRepos(this.user?.login, this.currentPage)
       .subscribe(
         repos => {
-          console.log(repos);
           if (repos.length < 30) this.reposRemaining = false;
           repos.map(repo => {
             this.service.getLanguages(repo.full_name)
