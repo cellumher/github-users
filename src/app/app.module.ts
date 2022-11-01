@@ -8,6 +8,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
 import { ReposComponent } from './components/user-info/repos/repos.component';
 import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
     NavbarComponent,
     UserInfoComponent,
     ReposComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

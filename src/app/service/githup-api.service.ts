@@ -25,8 +25,8 @@ export class GithupApiService {
       });
   }
 
-  getRepos(username: string): Observable<Repo[]> {
-    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos",
+  getRepos(username: string, page: number): Observable<Repo[]> {
+    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page,
       {
         headers: {
           authorization: "token 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"

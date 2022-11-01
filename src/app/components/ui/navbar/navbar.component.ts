@@ -11,12 +11,16 @@ import { GithupApiService } from 'src/app/service/githup-api.service';
 export class NavbarComponent implements OnInit {
 
   user!: User;
-  username: string = "celiapdg";
+  username: string = "octokit";
   found!: boolean;
   errorUser!: any;
   errorRepo!: any;
-  repos!: Repo[];
+  repos: Repo[] = [];
+  reposRemaining: boolean = true;
+  currentPage: number = 1;
   allLanguages: Set<string> = new Set();
+  loadingUser = false;
+  loadingRepos = false;
 
   constructor(
     private service: GithupApiService) {
@@ -27,10 +31,12 @@ export class NavbarComponent implements OnInit {
   }
 
   searchInfo(): void {
-    if (!this.username) return;
+    if (!this.username || this.username.toLocaleLowerCase() === this.user?.login.toLocaleLowerCase()) return;
+    this.loadingUser = true;
+    this.loadingRepos = true;
+    this.repos = [];
     this.allLanguages = new Set();
     this.searchUser();
-    this.searchRepos();
   }
 
   searchUser(): void {
@@ -41,17 +47,27 @@ export class NavbarComponent implements OnInit {
           this.found = true;
           this.errorUser = null;
           this.username = "";
+          this.reposRemaining = true;
+          this.currentPage = 1;
+          this.loadingUser = false;
+          this.searchRepos();
         },
         error => {
           this.found = false;
           this.errorUser = error;
+          this.reposRemaining = false;
+          this.currentPage = 1;
+          this.loadingUser = false;
         });
   }
 
   searchRepos(): void {
-    this.service.getRepos(this.username)
+    this.loadingRepos = true;
+    this.service.getRepos(this.user?.login, this.currentPage)
       .subscribe(
         repos => {
+          console.log(repos);
+          if (repos.length < 30) this.reposRemaining = false;
           repos.map(repo => {
             this.service.getLanguages(repo.full_name)
               .subscribe(
@@ -64,12 +80,15 @@ export class NavbarComponent implements OnInit {
                 },
                 error => this.errorRepo = error);
           })
-          this.repos = repos;
+          this.loadingRepos = false;
+          this.repos = [...this.repos, ...repos];
           this.errorRepo = null;
-          console.log(repos);
+          this.currentPage++;
         },
         error => {
           this.errorRepo = error;
+          this.reposRemaining = false;
+          this.loadingRepos = false;
         }
       )
   }

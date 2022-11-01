@@ -16,6 +16,7 @@ body {
     --btn-text-color: #fff;
     --btn-hover-color: #34464e;
     --btn-active-color: #223138;
+    --link-color: #34a3d3;
 }
 
 body.dark-theme {
@@ -27,19 +28,22 @@ body.dark-theme {
     --btn-text-color: #fff;
     --btn-hover-color: #536e7a;
     --btn-active-color: #60818f;
+    --link-color: #34a3d3;
 }
 
 body {
     color: var(--text-color);
     background-color: var(--first-color);
     padding-top: 60px;
+    transition: background-color 0.2s ease;
 }
 
 h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+p {
     font-weight: 300;
 }
 
@@ -67,6 +71,7 @@ nav {
     display: flex;
     justify-content: center;
     background-color: var(--second-color);
+    transition: background-color 0.2s ease;
 }
 
 input[type=text],
@@ -83,7 +88,9 @@ input[type=text] {
     width: 80%;
     max-width: 600px;
     background-color: var(--third-color);
+    color: var(--text-color);
     font-weight: 300;
+    transition: background-color 0.2s ease;
 }
 
 button {
@@ -102,6 +109,20 @@ button:active {
     background-color: var(--btn-active-color);
     transition: background-color 0.1s ease;
 }
+
+a,
+.repo-url-link {
+    color: var(--link-color);
+    transition: color 0.5s ease;
+    text-decoration: none;
+}
+
+a:hover,
+.repo-url-link:hover {
+    cursor: pointer;
+    color: var(--btn-hover-color);
+}
+
 
 label {
     font-weight: 300;
@@ -122,6 +143,7 @@ th {
     font-size: 1.1em;
     font-weight: 700;
     background-color: var(--second-color);
+    transition: background-color 0.2s ease;
 }
 
 tbody,
@@ -142,7 +164,7 @@ td {
 }
 
 tr {
-    transition: background-color 0.5s ease;
+    transition: background-color 0.2s ease;
 }
 
 tr:hover {

@@ -1,32 +1,47 @@
 <app-navbar #result></app-navbar>
 <main class="wrapper">
     <ng-container *ngIf="result.found && !result.errorUser; else errorMessage">
-        <div class="user-details">
-            <div class="avatar">
-                <img src="{{result.user.avatar_url}}" alt="AVATAR">
-            </div>
-            <div>
-                <h2>{{result.user.login}}</h2>
+        <ng-container *ngIf="!result.loadingUser">
+            <div class="user-details">
+                <div class="basic-info">
+                    <div class="avatar">
+                        <img src="{{result.user.avatar_url}}" alt="AVATAR">
+                    </div>
+                    <h2>{{result.user.login}}</h2>
+                </div>
                 <p>{{result.user.bio}}</p>
-            </div>
-        </div>
-        <div class="repo-search">
-            <input type="text" [(ngModel)]="filterRepos" placeholder="Buscar repo del usuario" />
-            <div class="languages-wrapper">
-                <label *ngFor="let language of result.allLanguages">
-                    <input type="radio" name="filterLanguage" value="{{language}}"
-                        [(ngModel)]="filterLanguage">{{language}}
-                </label>
-                <label>
-                    <input type="radio" name="filterLanguage" value="Todos" [(ngModel)]="filterLanguage">Todos
-                </label>
-            </div>
 
-        </div>
+            </div>
+            <div class="repo-search">
+                <input type="text" [(ngModel)]="filterRepos" placeholder="Buscar repo del usuario"
+                    [disabled]="result.repos.length===0" />
+                <div class="languages-wrapper">
+                    <label *ngFor="let language of result.allLanguages">
+                        <input type="radio" name="filterLanguage" value="{{language}}"
+                            [(ngModel)]="filterLanguage">{{language}}
+                    </label>
+                    <label>
+                        <input type="radio" name="filterLanguage" value="Todos" [(ngModel)]="filterLanguage">Todos
+                    </label>
+                </div>
+            </div>
+        </ng-container>
 
         <div class="repo-wrapper">
-            <app-repos [repos]="result.repos" [filter]="filterRepos" [language]="filterLanguage"></app-repos>
+            <ng-container *ngIf="result.repos.length > 0 || !result.loadingRepos; else loadingMessage">
+                <app-repos [repos]="result.repos" [filter]="filterRepos" [language]="filterLanguage"></app-repos>
+                <button *ngIf="result.reposRemaining||result.loadingRepos" [disabled]="result.loadingRepos"
+                    (click)="result.searchRepos()">
+                    <span *ngIf="!result.loadingRepos">Cargar más</span>
+                    <span *ngIf="result.loadingRepos">Cargando...</span>
+                </button>
+            </ng-container>
+            <ng-template #loadingMessage>
+                <app-loading></app-loading>
+            </ng-template>
         </div>
+
+
     </ng-container>
 </main>
 <ng-template #errorMessage>

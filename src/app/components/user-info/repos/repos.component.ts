@@ -14,6 +14,18 @@ export class ReposComponent implements OnInit {
   reposShown!: Repo[];
   reposEmpty: boolean = false;
   error: any;
+  sortingParameters = {
+    name: {
+      asc: true // true porque inicialmente está ordenado ASC
+    },
+    stars: {
+      asc: false
+    },
+    lastSort: {
+      column: "name",
+      asc: false
+    }
+  }
 
   constructor() { }
 
@@ -21,12 +33,13 @@ export class ReposComponent implements OnInit {
   }
 
   ngOnChanges(changes: any): void {
+    this.repeatLastSort();
     this.filterRepos();
 
   }
 
   filterRepos(): void {
-    if (!!this.filter && this.filter != "") {
+    if (!!this.filter && this.filter !== "") {
       this.reposShown = this.repos.filter(
         repo => {
           return repo.name.toLocaleLowerCase().includes(this.filter.toLocaleLowerCase())
@@ -35,7 +48,7 @@ export class ReposComponent implements OnInit {
       this.reposShown = this.repos;
     }
 
-    if (!!this.language && this.language != "Todos") {
+    if (!!this.language && this.language !== "Todos") {
       this.reposShown = this.reposShown.filter(
         repo => {
           return repo.languages_array?.includes(this.language);
@@ -55,6 +68,70 @@ export class ReposComponent implements OnInit {
       this.reposEmpty = false;
       this.error = null;
     }
+  }
+
+  sortReposByName(): void {
+
+    console.log("before", this.repos);
+    if (this.sortingParameters.name.asc) this.repos.sort(this.compareNameDesc);
+    else this.repos.sort(this.compareNameAsc);
+
+    this.sortingParameters.lastSort = {
+      column: "name",
+      asc: this.sortingParameters.name.asc
+    }
+
+    // preparar la siguiente ordenacion
+    this.sortingParameters.name.asc = !this.sortingParameters.name.asc
+    this.sortingParameters.stars.asc = false;
+
+    console.log("after", this.repos)
+
+  }
+
+  sortReposByStars(): void {
+
+    console.log("before", this.repos);
+    if (this.sortingParameters.stars.asc) this.repos.sort(this.compareStarsDesc);
+    else this.repos.sort(this.compareStarsAsc);
+
+    this.sortingParameters.lastSort = {
+      column: "stars",
+      asc: this.sortingParameters.stars.asc
+    }
+
+    // preparar la siguiente ordenacion
+    this.sortingParameters.stars.asc = !this.sortingParameters.stars.asc
+    this.sortingParameters.name.asc = false;
+
+    console.log("after", this.repos);
+
+  }
+
+  repeatLastSort(): void {
+    if (this.sortingParameters.lastSort.column === "name") {
+      this.sortingParameters.name.asc = this.sortingParameters.lastSort.asc;
+      this.sortReposByName();
+    } else {
+      this.sortingParameters.stars.asc = this.sortingParameters.lastSort.asc;
+      this.sortReposByStars();
+    }
+  }
+
+  compareNameAsc(a: Repo, b: Repo): number {
+    return a.name.localeCompare(b.name);
+  }
+
+  compareNameDesc(a: Repo, b: Repo): number {
+    return -a.name.localeCompare(b.name);
+  }
+
+  compareStarsAsc(a: Repo, b: Repo): number {
+    return b.stargazers_count - a.stargazers_count
+  }
+
+  compareStarsDesc(a: Repo, b: Repo): number {
+    return a.stargazers_count - b.stargazers_count
   }
 
   // https://sankhadip.medium.com/how-to-sort-table-rows-according-column-in-angular-9-b04fdafb4140

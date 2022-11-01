@@ -1,13 +1,13 @@
-<table>
+<table class="tableSection">
     <thead>
         <tr>
-            <th>NOMBRE</th>
-            <th>DESCRIPCION</th>
-            <th>URL</th>
-            <th>
+            <th name="name" (click)="sortReposByName()">NOMBRE</th>
+            <th name="description">DESCRIPCION</th>
+            <th name="url">URL</th>
+            <th name="stars" (click)="sortReposByStars()">
                 <img src="../../../../assets/star.svg" alt="ESTRELLAS" />
             </th>
-            <th>LENGUAJES</th>
+            <th name="lenguajes">LENGUAJES</th>
         </tr>
     </thead>
 
@@ -16,9 +16,11 @@
             <tr *ngFor="let repo of reposShown">
                 <td>{{repo.name}}</td>
                 <td>{{repo.description}}</td>
-                <td><a href="{{repo.html_url}}">{{repo.html_url}}</a></td>
+                <td class="repo-url">
+                    <p class="repo-url-link"><a href="{{repo.html_url}}">{{repo.html_url}}</a></p>
+                </td>
                 <td class="center-text">{{repo.stargazers_count}}</td>
-                <td><span *ngFor=" let language of repo.languages_array">{{language}} </span></td>
+                <td><span *ngFor="let language of repo.languages_array">{{language}} </span></td>
             </tr>
         </ng-container>
 
@@ -29,5 +31,4 @@
         </ng-template>
 
     </tbody>
-
 </table>

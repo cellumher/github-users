@@ -1,0 +1,39 @@
+.repo-url {
+    width: 20%;
+}
+
+.repo-url-link {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    max-width: 200px;
+}
+
+table.tableSection {
+    display: table;
+    width: 100%;
+}
+
+table.tableSection thead,
+table.tableSection tbody {
+    width: 100%;
+}
+
+table.tableSection thead {
+    overflow-y: scroll;
+    display: table;
+    table-layout: fixed;
+}
+
+table.tableSection tbody {
+    overflow: auto;
+    max-height: 57vh;
+    display: block;
+}
+
+table.tableSection tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
