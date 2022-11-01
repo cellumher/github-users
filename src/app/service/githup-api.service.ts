@@ -16,32 +16,22 @@ export class GithupApiService {
     private http: HttpClient
   ) { }
 
+  /* para solventar el rate limit, hay que añadir un token en los headers
+  {
+    headers: {
+      authorization: "token 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"
+    }
+  } */
   getUser(username: string): Observable<User> {
-    return this.http.get<User>(this.baseURL + "users/" + username,
-      {
-        headers: {
-          authorization: "token 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"
-        }
-      });
+    return this.http.get<User>(this.baseURL + "users/" + username);
   }
 
   getRepos(username: string, page: number): Observable<Repo[]> {
-    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page,
-      {
-        headers: {
-          authorization: "token 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"
-        }
-      });
+    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page);
   }
 
   getLanguages(fullName: string): Observable<object> {
-    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages",
-      // para solventar el rate limit, hay que añadir un token en los headers
-      {
-        headers: {
-          authorization: "token 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"
-        }
-      });
+    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages");
   }
 
 }
