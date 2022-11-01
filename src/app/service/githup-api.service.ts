@@ -17,15 +17,30 @@ export class GithupApiService {
   ) { }
 
   getUser(username: string): Observable<User> {
-    return this.http.get<User>(this.baseURL + "users/" + username);
+    return this.http.get<User>(this.baseURL + "users/" + username,
+      {
+        headers: {
+          authorization: "token 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"
+        }
+      });
   }
 
   getRepos(username: string, page: number): Observable<Repo[]> {
-    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page);
+    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page,
+      {
+        headers: {
+          authorization: "token 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"
+        }
+      });
   }
 
   getLanguages(fullName: string): Observable<object> {
-    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages");
+    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages",
+      {
+        headers: {
+          authorization: "token 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"
+        }
+      });
   }
 
 }
