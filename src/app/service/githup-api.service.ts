@@ -20,7 +20,7 @@ export class GithupApiService {
     return this.http.get<User>(this.baseURL + "users/" + username,
       {
         headers: {
-          authorization: "token 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"
+          authorization: "token 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"
         }
       });
   }
@@ -29,7 +29,7 @@ export class GithupApiService {
     return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page,
       {
         headers: {
-          authorization: "token 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"
+          authorization: "token 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"
         }
       });
   }
@@ -38,7 +38,7 @@ export class GithupApiService {
     return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages",
       {
         headers: {
-          authorization: "token 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"
+          authorization: "token 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"
         }
       });
   }
