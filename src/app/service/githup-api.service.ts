@@ -20,7 +20,7 @@ export class GithupApiService {
     return this.http.get<User>(this.baseURL + "users/" + username,
       {
         headers: {
-          authorization: "token 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"
+          authorization: "token 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"
         }
       });
   }
@@ -29,7 +29,7 @@ export class GithupApiService {
     return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page,
       {
         headers: {
-          authorization: "token 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"
+          authorization: "token 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"
         }
       });
   }
@@ -38,7 +38,7 @@ export class GithupApiService {
     return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages",
       {
         headers: {
-          authorization: "token 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"
+          authorization: "token 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"
         }
       });
   }
