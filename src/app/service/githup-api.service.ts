@@ -16,31 +16,19 @@ export class GithupApiService {
     private http: HttpClient
   ) { }
 
+  /* para solventar el rate limit, hay que añadir un token en los headers
+     headers: { authorization: "token insertar_token" } */
+
   getUser(username: string): Observable<User> {
-    return this.http.get<User>(this.baseURL + "users/" + username,
-      {
-        headers: {
-          authorization: "token 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"
-        }
-      });
+    return this.http.get<User>(this.baseURL + "users/" + username);
   }
 
   getRepos(username: string, page: number): Observable<Repo[]> {
-    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page,
-      {
-        headers: {
-          authorization: "token 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"
-        }
-      });
+    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page);
   }
 
   getLanguages(fullName: string): Observable<object> {
-    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages",
-      {
-        headers: {
-          authorization: "token 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"
-        }
-      });
+    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages");
   }
 
 }
