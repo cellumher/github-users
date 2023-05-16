@@ -19,5 +19,5 @@
 .toggle-theme {
     background-color: var(--btn-text-color);
     mask: url("assets/toggle-theme.svg") no-repeat center;
-      -webkit-mask: url("assets/toggle-theme.svg") no-repeat center;
+    -webkit-mask: url("assets/toggle-theme.svg") no-repeat center;
 }
