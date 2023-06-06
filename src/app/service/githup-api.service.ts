@@ -11,27 +11,30 @@ import { Repo } from '../interfaces/repo';
 export class GithupApiService {
 
   baseURL = "https://api.github.com/"
+  headers = {
+    headers: {
+      authorization: "token TOKEN"
+    }
+  }
 
   constructor(
     private http: HttpClient
   ) { }
 
-  /* para solventar el rate limit, hay que añadir un token en los headers
-  {
-    headers: {
-      authorization: "token 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"
-    }
-  } */
+
   getUser(username: string): Observable<User> {
-    return this.http.get<User>(this.baseURL + "users/" + username);
+    let url = `${this.baseURL}users/${username}`;
+    return this.http.get<User>(url, this.headers);
   }
 
   getRepos(username: string, page: number): Observable<Repo[]> {
-    return this.http.get<Repo[]>(this.baseURL + "users/" + username + "/repos?page=" + page);
+    let url = `${this.baseURL}users/${username}/repos?page=${page}`;
+    return this.http.get<Repo[]>(url, this.headers);
   }
 
   getLanguages(fullName: string): Observable<object> {
-    return this.http.get<object>(this.baseURL + "repos/" + fullName + "/languages");
+    let url = `${this.baseURL}repos/${fullName}/languages`;
+    return this.http.get<object>(url, this.headers);
   }
 
 }
