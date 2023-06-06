@@ -13,3 +13,4 @@ Tareas pendientes:
     👩🏻‍💻 Llamadas ilimitadas
     💤 Filtrar por varios lenguajes a la vez
     💤 Scroll infinito
+    👩🏻‍💻 Añadir Rxjs
