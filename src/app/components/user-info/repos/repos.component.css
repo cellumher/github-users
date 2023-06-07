@@ -1,39 +1,63 @@
-.repo-url {
-    width: 20%;
+.repo-url,
+.stars {
+  width: 12%;
+  max-width: 40px;
 }
 
-.repo-url-link {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100%;
-    max-width: 200px;
+.repo-url img {
+  max-width: 25px;
+  min-width: 18px;
 }
+
 
 table.tableSection {
-    display: table;
-    width: 100%;
+  display: table;
+  width: 100%;
+
 }
 
 table.tableSection thead,
 table.tableSection tbody {
-    width: 100%;
+  width: 100%;
+  font-size: 16px;
 }
 
 table.tableSection thead {
-    overflow-y: scroll;
-    display: table;
-    table-layout: fixed;
+  display: table;
+  table-layout: fixed;
+}
+
+.description {
+  overflow-wrap: break-word;
+  max-width: 200px;
+}
+
+@media screen and (max-width: 600px) {
+
+  table.tableSection thead,
+  table.tableSection tbody {
+    font-size: 14px;
+  }
+
+  tr .description {
+    display: none;
+  }
+
 }
 
 table.tableSection tbody {
-    overflow: auto;
-    max-height: 57vh;
-    display: block;
+  overflow-y: auto;
+  max-height: 57vh;
+  display: block;
 }
 
 table.tableSection tr {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+
+table.tableSection tr th,
+table.tableSection tbody td {
+  min-width: 150px;
 }

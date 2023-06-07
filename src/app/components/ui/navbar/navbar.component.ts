@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject, Subscription, debounceTime, delay, distinctUntilChanged, distinctUntilKeyChanged, filter, forkJoin, map, mergeMap, switchMap, tap } from 'rxjs';
 import { Repo } from 'src/app/interfaces/repo';
 import { User } from 'src/app/interfaces/user';
@@ -10,6 +10,9 @@ import { GithupApiService } from 'src/app/service/githup-api.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  @Output()
+  public onChange = new EventEmitter<Set<string>>();
 
   debouncer: Subject<string> = new Subject<string>();
 
@@ -42,12 +45,12 @@ export class NavbarComponent implements OnInit {
 
 
   searchUser(username: string): void {
+    this.loadingUser = true;
+    this.loadingRepos = true;
     this.service.getUser(username)
       .pipe(
         distinctUntilKeyChanged('login'),
         tap(() => {
-          this.loadingUser = true;
-          this.loadingRepos = true;
           this.repos = [];
           this.allLanguages = new Set();
         }),
@@ -68,6 +71,7 @@ export class NavbarComponent implements OnInit {
             this.reposRemaining = false;
             this.currentPage = 1;
             this.loadingUser = false;
+            this.loadingRepos = false;
           },
           complete: () => this.searchRepos()
         })
@@ -77,7 +81,7 @@ export class NavbarComponent implements OnInit {
     this.loadingRepos = true;
     this.service.getRepos(this.user!.login, this.currentPage)
       .pipe(
-        map<Repo[], void>(repos => {
+        map<Repo[], Repo[]>(repos => {
           if (repos.length < 30) this.reposRemaining = false;
           repos.map(repo => {
             this.service.getLanguages(repo.full_name).subscribe({
@@ -92,19 +96,26 @@ export class NavbarComponent implements OnInit {
                 this.reposRemaining = false;
                 this.loadingUser = false;
                 this.loadingRepos = false;
-                this.errorRepo = error
+                this.errorRepo = error;
               }
 
             })
+            return repo;
           })
-          this.repos = [...this.repos, ...repos];
+          return repos;
         }),
-
-      ).subscribe(() => {
-        this.loadingUser = false;
-        this.loadingRepos = false;
-        this.errorRepo = null;
-        this.currentPage++;
+        delay(500),
+        tap(() => {
+          this.onChange.emit(this.allLanguages);
+          this.loadingUser = false;
+          this.loadingRepos = false;
+        })
+      ).subscribe({
+        next: repos => {
+          this.repos = [...this.repos, ...repos];
+          this.errorRepo = null;
+          this.currentPage++;
+        },
       });
   }
 

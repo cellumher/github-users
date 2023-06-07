@@ -1,41 +1,42 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
 }
+
 
 /* light theme colors*/
 body {
-    --text-color: #222;
-    --first-color: #eefaff;
-    --second-color: #34a3d3;
-    --third-color: #fff;
-    --btn-color: #455a64;
-    --btn-text-color: #fff;
-    --btn-hover-color: #34464e;
-    --btn-active-color: #223138;
-    --link-color: #34a3d3;
+  --text-color: #222;
+  --first-color: #eefaff;
+  --second-color: #34a3d3;
+  --third-color: #fff;
+  --btn-color: #455a64;
+  --btn-text-color: #fff;
+  --btn-hover-color: #34464e;
+  --btn-active-color: #223138;
+  --link-color: #34a3d3;
 }
 
 body.dark-theme {
-    --text-color: #fff;
-    --first-color: #222;
-    --second-color: #223138;
-    --third-color: #384e58;
-    --btn-color: #455a64;
-    --btn-text-color: #fff;
-    --btn-hover-color: #536e7a;
-    --btn-active-color: #60818f;
-    --link-color: #34a3d3;
+  --text-color: #fff;
+  --first-color: #222;
+  --second-color: #223138;
+  --third-color: #384e58;
+  --btn-color: #455a64;
+  --btn-text-color: #fff;
+  --btn-hover-color: #536e7a;
+  --btn-active-color: #60818f;
+  --link-color: #34a3d3;
 }
 
 body {
-    color: var(--text-color);
-    background-color: var(--first-color);
-    padding-top: 60px;
-    transition: background-color 0.2s ease;
+  color: var(--text-color);
+  background-color: var(--first-color);
+  padding-top: 60px;
+  transition: background-color 0.2s ease;
 }
 
 h1,
@@ -44,133 +45,137 @@ h3,
 h4,
 h5,
 p {
-    font-weight: 300;
+  font-weight: 300;
 }
 
 h1 {
-    font-size: 4em;
+  font-size: 4em;
 }
 
 h2 {
-    font-size: 3em;
+  font-size: 3em;
 }
 
 h3 {
-    font-size: 2.4em;
+  font-size: 2.4em;
 }
 
 h4 {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 nav {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    padding: 6px;
-    display: flex;
-    justify-content: center;
-    background-color: var(--second-color);
-    transition: background-color 0.2s ease;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--second-color);
+  transition: background-color 0.2s ease;
 }
 
 input[type=text],
 button {
-    height: 40px;
-    padding: 2px 10px;
-    margin: 3px;
-    border: none;
-    outline: none;
-    border-radius: 0.8em;
+  height: 40px;
+  padding: 2px 10px;
+  margin: 3px;
+  border: none;
+  outline: none;
+  border-radius: 0.8em;
 }
 
 input[type=text] {
-    width: 80%;
-    max-width: 600px;
-    background-color: var(--third-color);
-    color: var(--text-color);
-    font-weight: 300;
-    transition: background-color 0.2s ease;
+  width: 80%;
+  max-width: 600px;
+  background-color: var(--third-color);
+  color: var(--text-color);
+  font-weight: 300;
+  transition: background-color 0.2s ease;
 }
 
 button {
-    background-color: var(--btn-color);
-    color: var(--btn-text-color);
-    transition: background-color 0.5s ease;
+  background-color: var(--btn-color);
+  color: var(--btn-text-color);
+  transition: background-color 0.5s ease;
 }
 
 button:hover {
-    cursor: pointer;
-    background-color: var(--btn-hover-color);
+  cursor: pointer;
+  background-color: var(--btn-hover-color);
 
 }
 
 button:active {
-    background-color: var(--btn-active-color);
-    transition: background-color 0.1s ease;
+  background-color: var(--btn-active-color);
+  transition: background-color 0.1s ease;
 }
 
 a,
 .repo-url-link {
-    color: var(--link-color);
-    transition: color 0.5s ease;
-    text-decoration: none;
+  color: var(--link-color);
+  transition: color 0.5s ease;
+  text-decoration: none;
 }
 
 a:hover,
 .repo-url-link:hover {
-    cursor: pointer;
-    color: var(--btn-hover-color);
+  cursor: pointer;
+  color: var(--btn-hover-color);
 }
 
 
 label {
-    font-weight: 300;
+  font-weight: 300;
 }
 
 input[type=checkbox],
 input[type=radio] {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 thead,
 th {
-    font-size: 1.1em;
-    font-weight: 700;
-    background-color: var(--second-color);
-    transition: background-color 0.2s ease;
+  font-size: 1.1em;
+  font-weight: 700;
+  background-color: var(--second-color);
+  transition: background-color 0.2s ease;
 }
 
 tbody,
 tr {
-    font-size: 1.1em;
-    font-weight: 300;
-    background-color: var(--third-color);
+  font-size: 1.1em;
+  font-weight: 300;
+  background-color: var(--third-color);
 }
 
 thead img {
-    height: 1.2em;
-    width: 1.2em;
+  height: 1.2em;
+  width: 1.2em;
 }
 
 th,
 td {
-    padding: 6px 12px;
+  padding: 6px 12px;
 }
 
 tr {
-    transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 tr:hover {
-    background-color: var(--first-color);
+  background-color: var(--first-color);
 }
 
-.center-text {
-    text-align: center;
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
 }

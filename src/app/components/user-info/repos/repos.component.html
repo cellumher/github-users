@@ -1,34 +1,36 @@
 <table class="tableSection">
-    <thead>
-        <tr>
-            <th name="name" (click)="sortReposByName()">NOMBRE</th>
-            <th name="description">DESCRIPCION</th>
-            <th name="url">URL</th>
-            <th name="stars" (click)="sortReposByStars()">
-                <img src="assets/star.svg" alt="ESTRELLAS" />
-            </th>
-            <th name="lenguajes">LENGUAJES</th>
-        </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th name="name" (click)="sortReposByName()">NOMBRE</th>
+      <th name="description" class="description">DESCRIPCION</th>
+      <th name="url" class="repo-url text-center">URL</th>
+      <th name="stars" class="stars" (click)="sortReposByStars()">
+        <img src="assets/star.svg" alt="ESTRELLAS" />
+      </th>
+      <th name="languages">LENGUAJES</th>
+    </tr>
+  </thead>
 
-    <tbody>
-        <ng-container *ngIf="!reposEmpty; else reposNotFound">
-            <tr *ngFor="let repo of reposShown">
-                <td>{{repo.name}}</td>
-                <td>{{repo.description}}</td>
-                <td class="repo-url">
-                    <p class="repo-url-link"><a href="{{repo.html_url}}">{{repo.html_url}}</a></p>
-                </td>
-                <td class="center-text">{{repo.stargazers_count}}</td>
-                <td><span *ngFor="let language of repo.languages_array">{{language}} </span></td>
-            </tr>
-        </ng-container>
+  <tbody>
+    <ng-container *ngIf="!reposEmpty; else reposNotFound">
+      <tr *ngFor="let repo of reposShown">
+        <td>{{repo.name}}</td>
+        <td class="description">{{repo.description}}</td>
+        <td class="repo-url text-center">
+          <a href="{{repo.html_url}}">
+            <img src="assets/external-link.svg" alt="LINK" />
+          </a>
+        </td>
+        <td class="text-center stars">{{repo.stargazers_count}}</td>
+        <td class="text-right"><span *ngFor="let language of repo.languages_array">{{language}} </span></td>
+      </tr>
+    </ng-container>
 
-        <ng-template #reposNotFound>
-            <td colspan="5">
-                <app-not-found class="center-text" [error]="error"></app-not-found>
-            </td>
-        </ng-template>
+    <ng-template #reposNotFound>
+      <td colspan="5">
+        <app-not-found class="text-center" [error]="error"></app-not-found>
+      </td>
+    </ng-template>
 
-    </tbody>
+  </tbody>
 </table>

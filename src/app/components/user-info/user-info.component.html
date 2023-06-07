@@ -1,8 +1,8 @@
-<app-navbar #result></app-navbar>
+<app-navbar (onChange)=setLanguageSelector($event); #result></app-navbar>
 <main class="wrapper">
   <ng-container *ngIf="result.found && !result.errorUser; else errorMessage">
     <ng-container *ngIf="!result.loadingUser">
-      <div class="user-details">
+      <div [@inOutAnimation] class="user-details">
         <div class="basic-info">
           <div class="avatar">
             <img src="{{result.user!.avatar_url}}" alt="AVATAR">
@@ -12,7 +12,7 @@
         <p>{{result.user!.bio}}</p>
 
       </div>
-      <div class="repo-search">
+      <div [@inOutAnimation] class="repo-search">
         <input type="text" [(ngModel)]="filterRepos" placeholder="Buscar repo del usuario"
           [disabled]="result.repos.length===0" />
         <div class="languages-wrapper">
@@ -27,12 +27,12 @@
     </ng-container>
 
     <div class="repo-wrapper">
-      <ng-container *ngIf="result.repos.length > 0 || !result.loadingRepos; else loadingMessage">
-        <app-repos [repos]="result.repos" [filter]="filterRepos" [language]="filterLanguage"></app-repos>
-        <button *ngIf="result.reposRemaining||result.loadingRepos" [disabled]="result.loadingRepos"
+      <ng-container *ngIf="!result.loadingRepos; else loadingMessage">
+        <app-repos [@inOutAnimation] [repos]="result.repos" [filter]="filterRepos"
+          [language]="filterLanguage"></app-repos>
+        <button [@inOutAnimation] *ngIf="result.reposRemaining||result.loadingRepos" [disabled]="result.loadingRepos"
           (click)="result.searchRepos()">
-          <span *ngIf="!result.loadingRepos">Cargar más</span>
-          <span *ngIf="result.loadingRepos">Cargando...</span>
+          <span *ngIf="!result.loadingRepos; else loadingMessage">Cargar más</span>
         </button>
       </ng-container>
       <ng-template #loadingMessage>

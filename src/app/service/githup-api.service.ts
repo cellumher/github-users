@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Repo } from '../interfaces/repo';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class GithupApiService {
   baseURL = "https://api.github.com/"
   headers = {
     headers: {
-      authorization: "token TOKEN"
+      authorization: "token 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"
     }
   }
 
