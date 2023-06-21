@@ -10,7 +10,7 @@ Aplicación web desarrollada con Angular haciendo uso de la API de Github que pe
 
 Tareas pendientes:
 
-    👩🏻‍💻 Llamadas ilimitadas
-    💤 Filtrar por varios lenguajes a la vez
-    💤 Scroll infinito
+    ✔️ Llamadas ilimitadas
+    👩🏻‍💻 Filtrar por varios lenguajes a la vez
+    ✔️ Scroll infinito
     👩🏻‍💻 Añadir Rxjs
