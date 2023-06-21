@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   public onChange = new EventEmitter<Set<string>>();
 
   debouncer: Subject<string> = new Subject<string>();
-  debouncerSubscription = this.debouncer.pipe(
+  debouncer$ = this.debouncer.pipe(
     filter(username => username !== ''),
     debounceTime(500),
     distinctUntilChanged(),
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.debouncerSubscription.subscribe(username => this.searchUser(username))
+    this.debouncer$.subscribe(username => this.searchUser(username))
 
     this.debouncer.next('octokit');
   }
@@ -135,8 +135,6 @@ export class NavbarComponent implements OnInit {
     if (token === "") return;
     this.service.saveToken(token);
     if (!this.found) {
-      this.debouncerSubscription
-        .subscribe(username => this.searchUser(username))
       this.debouncer.next('octokit');
     }
   }
