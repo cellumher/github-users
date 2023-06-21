@@ -78,7 +78,7 @@ export class ReposComponent implements OnInit {
         scrollHeight: (<Element>target).scrollHeight,
         clientHeight: (<Element>target).clientHeight,
       })),
-      filter((t => t.scrollTop === t.scrollHeight - t.clientHeight)),
+      filter((t => t.scrollTop >= t.scrollHeight * 0.95 - t.clientHeight)),
       tap(() => this.onScrollEnd.emit()),
     )
 
