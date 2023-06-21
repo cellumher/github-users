@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -41,13 +41,15 @@ export class UserInfoComponent implements OnInit {
   }
 
   setLanguageSelector(languages: Set<string>): void {
-    console.log(this.filterLanguage);
-    console.log(languages);
     if (this.filterLanguage === "Todos" ||
       languages.has(this.filterLanguage)) return;
 
     this.filterLanguage = "Todos";
 
+  }
+
+  checkMoreRepos(onReposScrollEnd: EventEmitter<any>): void {
+    onReposScrollEnd.emit();
   }
 
 }

@@ -1,23 +1,42 @@
+nav {
+  box-shadow: 0px 0px 5px var(--shadow-color);
+  z-index: 1000;
+}
+
 .nav-elements {
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 20px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+
+.nav-buttons {
+  display: flex;
 }
 
 .user-search {
-    width: 80%;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.tema {
-    border-radius: 50%;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .toggle-theme {
-    background-color: var(--btn-text-color);
-    mask: url("~src/assets/toggle-theme.svg") no-repeat center;
-      -webkit-mask: url("~src/assets/toggle-theme.svg") no-repeat center;
+  background-color: var(--btn-text-color);
+  mask: url("~src/assets/toggle-theme.svg") no-repeat center;
+  -webkit-mask: url("~src/assets/toggle-theme.svg") no-repeat center;
+}
+
+.toggle-token-input {
+  background-color: var(--btn-text-color);
+  mask: url("~src/assets/key.svg") no-repeat center;
+  -webkit-mask: url("~src/assets/key.svg") no-repeat center;
+}
+
+.token-input {
+  position: absolute;
+  top: 60px;
+  box-shadow: 0px 0px 5px var(--shadow-color);
+  max-width: 250px;
+  z-index: 100;
 }

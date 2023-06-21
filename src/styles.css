@@ -18,6 +18,7 @@ body {
   --btn-hover-color: #34464e;
   --btn-active-color: #223138;
   --link-color: #34a3d3;
+  --shadow-color: rgba(52, 163, 211, 0.5);
 }
 
 body.dark-theme {
@@ -30,6 +31,8 @@ body.dark-theme {
   --btn-hover-color: #536e7a;
   --btn-active-color: #60818f;
   --link-color: #34a3d3;
+  --shadow-color: rgba(34, 49, 56, 0.5);
+
 }
 
 body {
@@ -37,6 +40,12 @@ body {
   background-color: var(--first-color);
   padding-top: 60px;
   transition: background-color 0.2s ease;
+
+}
+
+body,
+nav {
+  min-width: 320px;
 }
 
 h1,
@@ -178,4 +187,8 @@ tr:hover {
 
 .text-right {
   text-align: right;
+}
+
+.button {
+  border-radius: 50%;
 }

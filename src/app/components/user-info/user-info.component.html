@@ -27,13 +27,9 @@
     </ng-container>
 
     <div class="repo-wrapper">
-      <ng-container *ngIf="!result.loadingRepos; else loadingMessage">
-        <app-repos [@inOutAnimation] [repos]="result.repos" [filter]="filterRepos"
-          [language]="filterLanguage"></app-repos>
-        <button [@inOutAnimation] *ngIf="result.reposRemaining||result.loadingRepos" [disabled]="result.loadingRepos"
-          (click)="result.searchRepos()">
-          <span *ngIf="!result.loadingRepos; else loadingMessage">Cargar más</span>
-        </button>
+      <ng-container *ngIf="!result.loadingUser; else loadingMessage">
+        <app-repos (onScrollEnd)="result.checkRepos()" [@inOutAnimation] [repos]="result.repos" [filter]="filterRepos"
+          [language]="filterLanguage" [reposRemaining]="result.reposRemaining"></app-repos>
       </ng-container>
       <ng-template #loadingMessage>
         <app-loading></app-loading>

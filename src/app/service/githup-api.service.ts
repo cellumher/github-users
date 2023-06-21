@@ -13,14 +13,28 @@ export class GithupApiService {
   baseURL = "https://api.github.com/"
   headers = {
     headers: {
-      authorization: "token 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"
+      authorization: ""
     }
   }
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    let token = localStorage.getItem('git-token');
+    if (!!token && token !== "") {
+      this.headers.headers.authorization = "token " + token;
+    }
+  }
 
+  saveToken(token: string): void {
+    localStorage.setItem('git-token', token);
+    this.headers.headers.authorization = "token " + token;
+  }
+
+  removeToken(): void {
+    localStorage.removeItem('git-token');
+    this.headers.headers.authorization = "";
+  }
 
   getUser(username: string): Observable<User> {
     let url = `${this.baseURL}users/${username}`;

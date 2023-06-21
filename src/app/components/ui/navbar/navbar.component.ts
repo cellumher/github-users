@@ -15,6 +15,11 @@ export class NavbarComponent implements OnInit {
   public onChange = new EventEmitter<Set<string>>();
 
   debouncer: Subject<string> = new Subject<string>();
+  debouncerSubscription = this.debouncer.pipe(
+    filter(username => username !== ''),
+    debounceTime(500),
+    distinctUntilChanged(),
+  )
 
   user?: User;
   found?: boolean;
@@ -25,20 +30,16 @@ export class NavbarComponent implements OnInit {
   currentPage: number = 1;
   allLanguages: Set<string> = new Set();
 
-  loadingUser = false;
-  loadingRepos = false;
+  showTokenInput = false;
+  loadingUser = true;
+  loadingRepos = true;
 
   constructor(
     private service: GithupApiService) {
   }
 
   ngOnInit(): void {
-    this.debouncer
-      .pipe(
-        filter(username => username !== ''),
-        debounceTime(500),
-        distinctUntilChanged(),
-      ).subscribe(username => this.searchUser(username))
+    this.debouncerSubscription.subscribe(username => this.searchUser(username))
 
     this.debouncer.next('octokit');
   }
@@ -119,11 +120,29 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  checkRepos(): void {
+    if (!this.reposRemaining) return;
+    this.searchRepos();
+  }
 
 
-
-  alternarTema(): void {
+  toggleTheme(): void {
     document.body.classList.toggle('dark-theme');
+  }
+
+  saveToken(token: string): void {
+    this.toggleTokenInput();
+    if (token === "") return;
+    this.service.saveToken(token);
+    if (!this.found) {
+      this.debouncerSubscription
+        .subscribe(username => this.searchUser(username))
+      this.debouncer.next('octokit');
+    }
+  }
+
+  toggleTokenInput() {
+    this.showTokenInput = !this.showTokenInput;
   }
 
 }

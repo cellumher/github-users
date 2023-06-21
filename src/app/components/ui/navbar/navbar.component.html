@@ -1,13 +1,23 @@
 <nav>
   <div class="nav-elements">
-    <button class="tema" (click)="alternarTema()">
-      <div class="toggle-theme">
-        <img src="assets/toggle-theme.svg" style="opacity:0" />
-      </div>
-    </button>
+    <div class="nav-buttons">
+      <button class="button" (click)="toggleTheme()">
+        <div class="toggle-theme">
+          <img src="assets/toggle-theme.svg" style="opacity:0" />
+        </div>
+      </button>
+      <button class="button" (click)="toggleTokenInput()">
+        <div class="toggle-token-input">
+          <img src="assets/key.svg" style="opacity:0" />
+        </div>
+      </button>
+      <input type="text" placeholder="Tu token de Github" *ngIf="showTokenInput" (keyup.enter)="saveToken(token.value)"
+        class="token-input" #token>
+    </div>
     <div class="user-search">
       <input type="text" placeholder="Buscar usuario de Github" (keyup)="debouncer.next(username.value)" #username />
     </div>
   </div>
+
 
 </nav>

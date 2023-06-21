@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { Observable, Subscription, debounceTime, filter, fromEvent, map, tap } from 'rxjs';
 import { Repo } from 'src/app/interfaces/repo';
 
 @Component({
@@ -11,6 +12,13 @@ export class ReposComponent implements OnInit {
   @Input() repos!: Repo[];
   @Input() filter!: string;
   @Input() language!: string;
+  @Input() reposRemaining: boolean = true;
+
+  @Output() onScrollEnd = new EventEmitter<void>();
+
+  scrollSubscription?: Subscription;
+  tbody?: HTMLTableSectionElement;
+
   reposShown!: Repo[];
   reposEmpty: boolean = false;
   error: any;
@@ -30,12 +38,55 @@ export class ReposComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
-  ngOnChanges(changes: any): void {
+  ngOnChanges(): void {
     this.repeatLastSort();
     this.filterRepos();
 
+    // suscripción inactiva o undefined y quedan repos
+    if ((this.scrollSubscription?.closed || !this.scrollSubscription) && this.reposRemaining) {
+      this.scrollSubscribe();
+
+      // suscripción activa y no quedan repos
+    } else if (!this.scrollSubscription?.closed && !this.reposRemaining) {
+      this.scrollUnsubscribe();
+
+      // suscripción activa y quedan repos
+    } else if (!this.scrollSubscription?.closed && this.reposRemaining) {
+      setTimeout(() => {
+        // no se puede hacer scroll por los filtros
+        if (this.tbody!.scrollHeight === this.tbody!.clientHeight) {
+          this.onScrollEnd.emit();
+        }
+      }, 300);
+
+    }
+
+
+
+
+  }
+
+  scrollSubscribe() {
+    this.tbody = document.querySelector('tbody')!;
+    const scroll$ = fromEvent<Event>(this.tbody!, "scrollend").pipe(
+      debounceTime(300),
+      map(({ target }) => ({
+        scrollTop: (<Element>target).scrollTop,
+        scrollHeight: (<Element>target).scrollHeight,
+        clientHeight: (<Element>target).clientHeight,
+      })),
+      filter((t => t.scrollTop === t.scrollHeight - t.clientHeight)),
+      tap(() => this.onScrollEnd.emit()),
+    )
+
+    this.scrollSubscription = scroll$.subscribe();
+  }
+
+  scrollUnsubscribe() {
+    this.scrollSubscription?.unsubscribe();
   }
 
   filterRepos(): void {
@@ -122,6 +173,10 @@ export class ReposComponent implements OnInit {
 
   compareStarsDesc(a: Repo, b: Repo): number {
     return a.stargazers_count - b.stargazers_count
+  }
+
+  prueba(hola: Event): void {
+
   }
 
   // https://sankhadip.medium.com/how-to-sort-table-rows-according-column-in-angular-9-b04fdafb4140
